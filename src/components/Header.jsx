@@ -68,9 +68,10 @@ const Header = () => {
       return "File Manager";
     }
   };
+  const coTechTooltip = "Real time location service technology.";
 
   const menuItems = [
-    // { label: "Home", id: "hero" },
+    { label: "CO Tech", id: "hero" },
     { label: "Services", id: "services" },
     { label: "Why Data Matters", id: "data-matters" },
     { label: "Why Choose Us", id: "why-choose-us" },
@@ -80,11 +81,10 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen
+        ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
+        : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -93,26 +93,53 @@ const Header = () => {
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSection("hero")}
           >
-            <div className="w-40 h-3s0 flex items-center justify-center flex-shrink-0">
+            <div className="w-44 md:w-56 h-16 flex items-center justify-center flex-shrink-0">
               <img
                 src="/assets/horizontallogo1.png"
                 alt="CO Consultants Logo"
                 className="w-full h-full object-contain"
               />
             </div>
+
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
-              >
-                {item.label}
-              </button>
-            ))}
+            {menuItems.map((item) =>
+              item.label === "CO Tech" ? (
+                <div key={item.id} className="relative group">
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
+                  >
+                    {item.label}
+                  </button>
+
+                  {/* Tooltip */}
+                  <div
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2
+                        hidden group-hover:block
+                        px-3 py-2 text-xs text-gray-900 bg-white
+                        rounded-md shadow-xl border border-gray-200
+                        whitespace-nowrap z-50"
+                  >
+
+
+                    {coTechTooltip}
+
+                  </div>
+                </div>
+              ) : (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-white hover:text-blue-400 transition-colors duration-200 font-medium"
+                >
+                  {item.label}
+                </button>
+              )
+            )}
+
             <Button
               variant="hero-outline"
               size="sm"
